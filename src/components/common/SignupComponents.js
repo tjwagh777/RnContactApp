@@ -6,6 +6,7 @@ import CustomButton from './CustomButton';
 import colors from '../../assets/themes/colors';
 import {LOGIN} from '../../constants/routeName';
 import {useNavigation} from '@react-navigation/native';
+import Message from './Message';
 
 const SignupComponents = ({
   onSubmit,
@@ -27,7 +28,16 @@ const SignupComponents = ({
         <Text style={styles.subtitle}>Create a account</Text>
       </View>
       <View style={styles.form}>
-        {error?.error && <Text>{error.error}</Text>}
+        {error?.error && (
+          <Message
+            danger
+            retry
+            retryFn={() => {
+              console.log(1);
+            }}
+            message={error?.error}
+          />
+        )}
         <CustomInput
           label="User Name"
           iconPostion="right"

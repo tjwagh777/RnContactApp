@@ -6,8 +6,9 @@ import CustomButton from './CustomButton';
 import colors from '../../assets/themes/colors';
 import {SIGNUP} from '../../constants/routeName';
 import {useNavigation} from '@react-navigation/native';
+import Message from './Message';
 
-const LoginComponents = () => {
+const LoginComponents = ({error, onChange, onSubmit, loading}) => {
   const navigation = useNavigation();
   return (
     <Container>
@@ -19,20 +20,37 @@ const LoginComponents = () => {
         <Text style={styles.title}>Welcome to Conatacts</Text>
         <Text style={styles.subtitle}>Please login here</Text>
       </View>
+
+      {error?.error && <Message danger onDismiss message={error?.error} />}
+
       <View style={styles.form}>
         <CustomInput
           label="UserName"
           iconPostion="right"
           placeHolder="Enter user name"
+          error={error?.username?.[0]}
+          onChangeText={value => {
+            onChange({name: 'username', value});
+          }}
         />
         <CustomInput
           label="Pasword"
-          placeHolder="Enter user name"
+          placeHolder="Enter password"
           secureTextEntry={true}
           icon={<Text>show</Text>}
           iconPostion="right"
+          error={error?.password?.[0]}
+          onChangeText={value => {
+            onChange({name: 'password', value});
+          }}
         />
-        <CustomButton primary title="Submit" />
+        <CustomButton
+          disabled={loading}
+          onPress={onSubmit}
+          loading={loading}
+          primary
+          title="Submit"
+        />
       </View>
       <View style={styles.section}>
         <Text style={styles.infoTxt}>Need a new account?</Text>
