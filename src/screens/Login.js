@@ -1,18 +1,19 @@
 import React, {useContext, useState} from 'react';
 import LoginComponents from '../components/common/LoginComponents';
-import {useNavigation} from '@react-navigation/native';
 import {GlobalContext} from '../context/Provider';
+import loginUser from '../context/actions/auth/loginUser';
 
 const Login = () => {
-  const navigation = useNavigation();
   const [form, setForm] = useState({});
+
   const {
     authDispatch,
     authState: {error, loading},
   } = useContext(GlobalContext);
 
   const onSubmit = () => {
-    if (form.usename && form.password) {
+    if (form.username && form.password) {
+      console.log(form);
       loginUser(form)(authDispatch);
     }
   };
@@ -20,6 +21,7 @@ const Login = () => {
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
   };
+
   return (
     <LoginComponents
       onSubmit={onSubmit}

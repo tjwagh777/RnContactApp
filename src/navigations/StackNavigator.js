@@ -15,7 +15,9 @@ import Setting from '../screens/Setting';
 const StackNavigator = () => {
   const Stack = createStackNavigator();
   return (
-    <Stack.Navigator initialRouteName={CONTACT_DETAIL}>
+    <Stack.Navigator
+      initialRouteName={CONTACT_DETAIL}
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name={CONTACT_LIST} component={Contacts} />
       <Stack.Screen name={CONTACT_DETAIL} component={ContactDetails} />
       <Stack.Screen name={CREATE_CONTACT} component={CreateContact} />

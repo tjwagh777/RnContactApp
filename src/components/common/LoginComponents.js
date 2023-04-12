@@ -21,6 +21,9 @@ const LoginComponents = ({error, onChange, onSubmit, loading}) => {
         <Text style={styles.subtitle}>Please login here</Text>
       </View>
 
+      {error && !error.error && (
+        <Message onDismiss={() => {}} danger message="invalid Credentails" />
+      )}
       {error?.error && <Message danger onDismiss message={error?.error} />}
 
       <View style={styles.form}>
@@ -28,7 +31,6 @@ const LoginComponents = ({error, onChange, onSubmit, loading}) => {
           label="UserName"
           iconPostion="right"
           placeHolder="Enter user name"
-          error={error?.username?.[0]}
           onChangeText={value => {
             onChange({name: 'username', value});
           }}
@@ -39,7 +41,6 @@ const LoginComponents = ({error, onChange, onSubmit, loading}) => {
           secureTextEntry={true}
           icon={<Text>show</Text>}
           iconPostion="right"
-          error={error?.password?.[0]}
           onChangeText={value => {
             onChange({name: 'password', value});
           }}

@@ -1,5 +1,12 @@
-import {LOGIN_LOADING, LOGIN_SUCCESS} from '../../../constants/actionTypes';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  LOGIN_FAIL,
+  LOGIN_LOADING,
+  LOGIN_SUCCESS,
+} from '../../../constants/actionTypes';
 import axiosIntance from '../../../helpers/axiosInterceptor';
+
+let test = 'test@gmail.com';
 
 export default ({password, username}) =>
   dispatch => {
@@ -10,6 +17,9 @@ export default ({password, username}) =>
         username,
       })
       .then(res => {
+        AsyncStorage.setItem('token', res.data.tekon);
+        AsyncStorage.setItem('user', test);
+
         dispatch({
           type: LOGIN_SUCCESS,
           payload: res.data,
@@ -17,10 +27,10 @@ export default ({password, username}) =>
       })
       .catch(err => {
         dispatch({
-          type: LOGIN_SUCCESS,
+          type: LOGIN_FAIL,
           payload: err.response
             ? err.response.data
-            : {error: 'registerAxiosCatch'},
+            : {error: 'LoginAxiosCatch'},
         });
       });
   };

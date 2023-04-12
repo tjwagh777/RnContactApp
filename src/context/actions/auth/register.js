@@ -2,6 +2,7 @@ import {
   REGISTER_LOADING,
   REGISTER_SUCCESS,
   CLEAR_AUTH_STATE,
+  REGISTER_FAIL,
 } from '../../../constants/actionTypes';
 import axiosIntance from '../../../helpers/axiosInterceptor';
 
@@ -36,7 +37,7 @@ export default ({
       })
       .catch(err => {
         dispatch({
-          type: REGISTER_SUCCESS,
+          type: REGISTER_FAIL,
           payload: err.response
             ? err.response.data
             : {error: 'registerAxiosCatch'},
